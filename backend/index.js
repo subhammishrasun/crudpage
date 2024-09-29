@@ -11,6 +11,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+  res.send("OK server accessable via 5300 port");
+});
+
+
 app.post("/register", async (req, resp) => {
   let user = new User(req.body);
   let result = await user.save();
