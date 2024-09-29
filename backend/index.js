@@ -11,6 +11,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+  res.send("OK server accessable via 5300 port");
+});
+
+
 app.post("/register", async (req, resp) => {
   let user = new User(req.body);
   let result = await user.save();
@@ -92,4 +97,11 @@ function verifyToken(req, resp, next) {
     resp.send({ result: "Please add token with header" });
   }
 }
-app.listen(5300);
+//app.listen(5300);
+console.log("Calling app.listen().");
+var server = app.listen(5300, function (){
+  console.log("Calling app.listen's callback function.");
+  var host = server.address().address;
+  var port = server.address().port;
+  console.log('Example app listening at http://%s:%s', host, port);
+});
